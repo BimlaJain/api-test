@@ -1,27 +1,38 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { DROPDOWN_OPTIONS, TABLE_DATA, USER_DATA } from '@/utils/helper';
+import { TABLE_DATA, USER_DATA } from '@/utils/helper';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const Dashboard = () => {
+const Dashboard = ({ universities }: { universities: any[] }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const initialPage = parseInt(searchParams.get('page') || '1', 10);
     const initialLimit = parseInt(searchParams.get('limit') || '10', 10);
-    const [entries] = useState(10); 
+    const [entries] = useState(10);
 
     const [search, setSearch] = useState<string>('');
     const [activeRowId, setActiveRowId] = useState<number | null>(null);
     const [currentPage, setCurrentPage] = useState(initialPage);
     const [data, setData] = useState(TABLE_DATA);
+    const initialRowId = parseInt(searchParams.get('row') || '0', 10);
+
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
-        router.push(`?page=${newPage}`);
+        router.push(`?page=${newPage}${activeRowId ? `&row=${activeRowId}` : ''}`);
     };
 
+    useEffect(() => {
+        const querySearch = searchParams.get('search') || '';
+        setSearch(querySearch);
+    }, [searchParams]);
 
-   
+    useEffect(() => {
+        if (initialRowId) {
+            setActiveRowId(initialRowId);
+        }
+    }, [initialRowId]);
+
     useEffect(() => {
         const storedPage = localStorage.getItem('currentPage');
         if (storedPage) {
@@ -122,8 +133,9 @@ const Dashboard = () => {
                                             onChange={(e) => {
                                                 const selectedPage = +e.target.value;
                                                 setCurrentPage(selectedPage);
-                                                router.push(`?page=${selectedPage}`);
+                                                router.push(`?page=${selectedPage}${activeRowId ? `&row=${activeRowId}` : ''}`);
                                             }}
+
                                             className="border text-white font-medium text-base w-[59px] gap-1 rounded px-2 py-1 outline-none bg-[#CD0CA7]"
                                         >
                                             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -140,9 +152,15 @@ const Dashboard = () => {
                                         type="text"
                                         placeholder="Find"
                                         value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
+                                        onChange={(e) => {
+                                            const val = e.target.value;
+                                            setSearch(val);
+                                            router.push(`?page=1${val ? `&search=${val}` : ''}${activeRowId ? `&row=${activeRowId}` : ''}`);
+                                            setCurrentPage(1); // Reset to first page when searching
+                                        }}
                                         className="ml-auto border px-3 py-1 rounded-full placeholder:text-black text-black border-black/20 outline-none mr-4"
                                     />
+
                                 </div>
 
                                 <div className="overflow-x-auto">
@@ -164,7 +182,11 @@ const Dashboard = () => {
                                             {paginatedData.map((row) => (
                                                 <tr
                                                     key={row.id}
-                                                    onClick={() => setActiveRowId(row.id)}
+                                                    onClick={() => {
+                                                        setActiveRowId(row.id);
+                                                        router.push(`?page=${currentPage}&row=${row.id}`);
+                                                    }}
+
                                                     className={`transition duration-300 ease-in-out cursor-pointer ${row.id === activeRowId ? 'bg-[#CD0CA7]/20' : 'bg-[#CD0CA714]/10'
                                                         } hover:bg-[#CD0CA7]/10 active:bg-[#CD0CA7]/20`}
                                                 >
@@ -242,7 +264,7 @@ const Dashboard = () => {
                         </div>
 
                     </div>
-               </div>
+                </div>
             </div>
         </div>
     );
