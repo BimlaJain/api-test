@@ -1,11 +1,20 @@
-// // app/dashboard/page.tsx
-// import Dashboard from '@/components/Dashboard';
+import { GetServerSideProps } from 'next';
+import Dashboard from '@/components/Dashboard';
 
-// const DashboardPage = async () => {
-//     const res = await fetch('http://universities.hipolabs.com/search?name=middle');
-//     const universities = await res.json();
+export const getServerSideProps: GetServerSideProps = async () => {
+    try {
+        const res = await fetch('http://universities.hipolabs.com/search?name=middle');
+        const universities = await res.json();
 
-//     return <Dashboard universities={universities} />;
-// };
+        return { props: { universities } };
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return { props: { universities: [] } };
+    }
+};
 
-// export default DashboardPage;
+const DashboardPage = ({ universities }: { universities: any[] }) => {
+    return <Dashboard universities={universities} />;
+};
+
+export default DashboardPage;
