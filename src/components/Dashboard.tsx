@@ -52,6 +52,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
 
         fetchData();
     }, []);
+    console.log('Data:', data);
 
     useEffect(() => {
         const params = new URLSearchParams();
