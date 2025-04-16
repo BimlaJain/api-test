@@ -56,7 +56,7 @@ const Program = () => {
                             setProfitOrLoss("Please enter valid numbers for Cost Price and Selling Price.");
                         }
                     }}
-                    className="bg-blue-600 hover:bg-blue-400 text-white px-4 py-2 rounded"
+                    className="bg-blue-600 hover:bg-blue-400 text-white px-4 py-2 rounded cursor-pointer"
                 >
                     Calculate
                 </button>
@@ -89,7 +89,7 @@ const Program = () => {
                 />
                 <button
                     onClick={() => isValidTriangle(Number(angle1), Number(angle2), Number(angle3))}
-                    className="bg-blue-600 hover:bg-blue-400 text-white px-4 py-2 rounded"
+                    className="bg-blue-600 hover:bg-blue-400 text-white px-4 py-2 rounded cursor-pointer"
                 >
                     Check Triangle
                 </button>

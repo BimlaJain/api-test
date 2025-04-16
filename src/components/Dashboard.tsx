@@ -104,7 +104,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                 <div className="flex flex-wrap items-center sm:justify-between justify-center">
                     <div className="text-[32px] font-medium lg:pb-12 md:pb-10 pb-8">My DevOps Spaces</div>
                     <div className="flex justify-between items-center mb-6">
-                        <button className="button-gradient-bg hover:scale-105 transition-all duration-500 ease-linear text-white px-4 py-2 rounded-xs font-medium">
+                        <button className="button-gradient-bg hover:scale-105 transition-all cursor-pointer duration-500 ease-linear text-white px-4 py-2 rounded-xs font-medium">
                             Create a DevOps Space (1 left)
                         </button>
                     </div>
