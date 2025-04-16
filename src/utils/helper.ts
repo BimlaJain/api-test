@@ -2,7 +2,6 @@ export const USER_DATA = ['Portail 360', 'Jenkins', 'Artifactory/Xray', 'Release
 
 export const DROPDOWN_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// export const TABLE_DATA = [
 //     { id: 1, country: 'United States', offer: 'Storage', team: 'Middlebury College', appId: 'AP19472' },
 //     { id: 2, country: 'Kuwait', offer: 'CD', team: 'Middlesex Community College', appId: 'AP19472' },
 //     { id: 3, country: 'United States', offer: 'Storage', team: 'American University of Middle East', appId: 'AP19472' },
