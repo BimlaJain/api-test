@@ -222,12 +222,12 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                                     <tr
                                                         key={row.id}
                                                         onClick={() => setActiveRowId(row.id)}
-                                                        className={`transition duration-300 ease-in-out cursor-pointer ${row.id === activeRowId ? 'bg-[#CD0CA7]/20' : 'bg-[#CD0CA714]/10'} hover:bg-[#CD0CA7]/10 active:bg-[#CD0CA7]/20`}
+                                                        className={`transition duration-300 ease-in-out cursor-pointer text-sm ${row.id === activeRowId ? 'bg-[#CD0CA7]/20' : 'bg-[#CD0CA714]/10'} hover:bg-[#CD0CA7]/10 active:bg-[#CD0CA7]/20`}
                                                     >
-                                                        <td className="px-4 py-3">{row.id}</td>
-                                                        <td className="px-4 py-3">{row.country}</td>
-                                                        <td className="px-4 py-3">{row.name}</td>
-                                                        <td className="px-4 py-3">
+                                                        <td className="px-4 py-3 text-sm">{row.id}</td>
+                                                        <td className="px-4 py-3 text-sm">{row.country}</td>
+                                                        <td className="px-4 py-3 text-sm">{row.name}</td>
+                                                        <td className="px-4 py-3 tex-sm">
                                                             {row.web_pages.length > 0 ? (
                                                                 <a href={row.web_pages[0]} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                                                     Visit Website
@@ -254,7 +254,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                 </div>
                             </main>
 
-                            <div className="flex justify-end items-center mt-4 gap-2 text-sm">
+                            <div className="flex justify-end items-center mt-4 gap-2 text-[13px]">
                                 <button
                                     className="px-3 py-1 bg-gray-200 rounded-xl disabled:opacity-50 cursor-pointer"
                                     onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
@@ -279,7 +279,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                             <button
                                                 key={page}
                                                 onClick={() => handlePageChange(page)}
-                                                className={`px-3 py-1 rounded ${isCurrent ? 'bg-[#4F02FE] text-white' : 'bg-white'}`}
+                                                className={`px-3 py-1 rounded text-sm ${isCurrent ? 'bg-[#4F02FE] text-white' : 'bg-white'}`}
                                             >
                                                 {page}
                                             </button>
