@@ -177,7 +177,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                             className="border text-white font-medium text-base w-[59px] gap-1 rounded px-2 py-1 outline-none bg-[#CD0CA7]"
                                         >
                                             {DROPDOWN_OPTIONS.map((n) => (
-                                                <option key={n} value={n} className="font-medium text-base text-white">
+                                                <option key={n} value={n} className="font-medium text-base text-white cursor-pointer">
                                                     {n}
                                                 </option>
                                             ))}
@@ -205,7 +205,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                                 <th className="px-4 py-2 text-left">Country</th>
                                                 <th className="px-4 py-2 text-left">University Name</th>
                                                 <th className="px-4 py-2 text-left">Web Pages</th>
-                                                <th className="px-4 py-2 text-center">Action</th>
+                                                <th className="px-4 py-2 text-left">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -256,7 +256,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
 
                             <div className="flex justify-end items-center mt-4 gap-2 text-sm">
                                 <button
-                                    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                                    className="px-3 py-1 bg-gray-200 rounded-xl disabled:opacity-50 cursor-pointer"
                                     onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                                     disabled={currentPage === 1}
                                 >
@@ -292,7 +292,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                 })}
 
                                 <button
-                                    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                                    className="px-3 py-1 bg-gray-200 rounded-xl disabled:opacity-50 cursor-pointer"
                                     onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
                                     disabled={currentPage === totalPages}
                                 >
