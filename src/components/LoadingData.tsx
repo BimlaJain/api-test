@@ -40,7 +40,7 @@ function LoadingData() {
                 {allData.slice(0, count).map((item) => (
                     <div key={item.id} className='group'>
                         <div  className="p-6 bg-white border rounded-xl group-hover:bg-black  transition-all duration-300 ease-linear">
-                            <h2 className="text-lg font-semibold text-black group-hover:text-white">{item.title}</h2>
+                            <h2 className="sm:text-lg text-base font-semibold text-black group-hover:text-white">{item.title}</h2>
                         </div>
                    </div>
                 ))}
