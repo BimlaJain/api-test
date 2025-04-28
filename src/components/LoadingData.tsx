@@ -29,7 +29,7 @@ const LoadingData = () => {
 
     return (
         <div className="pt-10">
-            <h2 className="text-4xl text-center mb-8">Array Task</h2>
+            <h2 className="text-4xl text-center mb-8">Loading Cards</h2>
 
             <div className="flex flex-col md:flex-row justify-center gap-10 mb-10 text-center">
                 <div className="p-4 border rounded-lg  max-w-[400px] w-full">
