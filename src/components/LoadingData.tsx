@@ -10,12 +10,12 @@ interface DataItem {
 
 const initialData: DataItem[] = Array.from({ length: 12 }, (_, i) => ({
     id: `${i + 1}`,
-    title: `${i + 1}: Lorem ipsum dolor sit amet.`,
+    title: `${i + 1}. Lorem ipsum dolor sit amet.`,
 }));
 
 const extraData: DataItem[] = Array.from({ length: 28 }, (_, i) => ({
     id: `${i + 13}`,
-    title: `${i + 13}: Lorem ipsum dolor sit amet.`,
+    title: `${i + 13}. Lorem ipsum dolor sit amet.`,
 }));
 
 const allData: DataItem[] = [...initialData, ...extraData];
