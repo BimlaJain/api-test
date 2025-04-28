@@ -27,6 +27,8 @@ function LoadingData() {
     const showLess = () => {
         setCount((prev) => Math.max(prev - 6, 6));
     };
+    console.log('count', count);
+    console.log('allData', allData);
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         params.set('count', count.toString());
