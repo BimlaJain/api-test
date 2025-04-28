@@ -47,9 +47,11 @@ function LoadingData() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {allData.slice(0, count).map((item) => (
-                    <div key={item.id} className="p-6 bg-white border rounded-xl shadow hover:shadow-lg transition">
-                        <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
-                    </div>
+                    <div key={item.id} className='group'>
+                        <div  className="p-6 bg-white border rounded-xl group-hover:bg-black  transition-all duration-300 ease-linear">
+                            <h2 className="text-lg font-semibold text-black group-hover:text-white">{item.title}</h2>
+                        </div>
+                   </div>
                 ))}
             </div>
 
