@@ -14,9 +14,11 @@ const extraData: DataItem[] = Array.from({ length: 28 }, (_, i) => ({
     id: `${i + 13}`,
     title: `${i + 13}. Lorem ipsum dolor sit amet.`,
 }));
+
 const allData: DataItem[] = [...initialData, ...extraData];
 
 function LoadingData() {
+  
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialCount = parseInt(searchParams.get('count') || '6', 10);
@@ -28,7 +30,8 @@ function LoadingData() {
         setCount((prev) => Math.max(prev - 6, 6));
     };
     console.log('count', count);
-    console.log('allData', allData);
+    console.log('initialData', initialData);
+    console.log('extraData', extraData);
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         params.set('count', count.toString());
