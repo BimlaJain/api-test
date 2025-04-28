@@ -1,12 +1,14 @@
 import Dashboard from '@/components/Dashboard'
+import LoadingData from '@/components/LoadingData'
 import Program from '@/components/Program'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Dashboard universities={[]} />
-      <Program/>
+      {/* <Dashboard universities={[]} />
+      <Program/> */}
+      <LoadingData/>
     </div>
   )
 }

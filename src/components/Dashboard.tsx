@@ -100,7 +100,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
 
     return (
         <div className="min-h-screen bg-[#F5F6FA] flex justify-center items-center py-14">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-[1280px]">
                 <div className="flex flex-wrap items-center sm:justify-between justify-center">
                     <div className="text-[32px] font-medium lg:pb-12 md:pb-10 pb-8">My DevOps Spaces</div>
                     <div className="flex justify-between items-center mb-6">
@@ -112,7 +112,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
 
                 <div className="max-xl:overflow-auto">
                     <div className="flex w-full">
-                        <aside className="sm:p-6 space-y-8 shadow-sm">
+                        <div className="sm:p-6 space-y-8 shadow-sm">
                             <div>
                                 <h2 className="font-medium text-xl mb-5">User’s Guides</h2>
                                 {USER_DATA.map((item: string) => (
@@ -161,10 +161,10 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                     </div>
                                 </div>
                             </div>
-                        </aside>
+                        </div>
 
                         <div className="flex flex-col w-full">
-                            <main className="flex-1 py-6 bg-white shadow-sm ml-5 w-full">
+                            <div className="flex-1 py-6 bg-white shadow-sm ml-5 w-full">
                                 <div className="flex flex-wrap items-center gap-4 mb-4 pl-6">
                                     <label className="flex items-center gap-2 text-sm font-medium">
                                         Show
@@ -252,7 +252,7 @@ const Dashboard: React.FC<DashboardProps> = ({ universities }) => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </main>
+                            </div>
 
                             <div className="flex justify-end items-center mt-4 gap-2 text-[13px]">
                                 <button
