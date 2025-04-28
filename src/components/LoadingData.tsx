@@ -1,72 +1,76 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+"use client"
+import React, { useState, useEffect } from "react";
 
-interface DataItem {
-    id: string;
-    title: string;
-}
-const initialData: DataItem[] = Array.from({ length: 12 }, (_, i) => ({
-    id: `${i + 1}`,
-    title: `${i + 1}. Lorem ipsum dolor sit amet.`,
-}));
-const extraData: DataItem[] = Array.from({ length: 28 }, (_, i) => ({
-    id: `${i + 13}`,
-    title: `${i + 13}. Lorem ipsum dolor sit amet.`,
-}));
-
-const allData: DataItem[] = [...initialData, ...extraData];
-
-function LoadingData() {
-  
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const initialCount = parseInt(searchParams.get('count') || '6', 10);
-    const [count, setCount] = useState<number>(initialCount);
-    const showMore = () => {
-        setCount((prev) => Math.min(prev + 6, allData.length));
+const LoadingData = () => {
+    const cardData = Array.from({ length: 40 }, (_, i) => ({
+        id: i + 1,
+        title: `Card ${i + 1}`,
+    }));
+    const [displayedCards, setDisplayedCards] = useState(cardData.slice(0, 6));
+    const [moreData, setMoreData] = useState(cardData.slice(6, 12));
+    const loadMoreCards = () => {
+        const additionalCards = cardData.slice(
+            displayedCards.length,
+            displayedCards.length + 6
+        );
+        setDisplayedCards((prev) => [...prev, ...additionalCards]);
+        const updatedMoreData = cardData.slice(
+            displayedCards.length + 6,
+            displayedCards.length + 12
+        );
+        setMoreData(updatedMoreData);
     };
-    const showLess = () => {
-        setCount((prev) => Math.max(prev - 6, 6));
-    };
-    console.log('count', count);
-    console.log('initialData', initialData);
-    console.log('extraData', extraData);
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        params.set('count', count.toString());
-        router.replace(`?${params.toString()}`, { scroll: false });
-    }, [count, router]);
+        console.log("Updated moreData:", moreData);
+    }, [moreData]);
+    useEffect(() => {
+        console.log("Updated displayedCards:", displayedCards);
+    }, [displayedCards]);
 
     return (
-        <div className="p-8 container mx-auto max-w-[1140px]">
-            <h2 className="text-3xl font-extrabold mb-6 text-center text-black">Latest Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {allData.slice(0, count).map((item) => (
-                    <div key={item.id} className='group'>
-                        <div  className="p-6 bg-white border rounded-xl group-hover:bg-black  transition-all duration-300 ease-linear">
-                            <h2 className="sm:text-lg text-base font-semibold text-black group-hover:text-white">{item.title}</h2>
-                        </div>
-                   </div>
-                ))}
+        <div className="pt-10">
+            <h2 className="text-4xl text-center mb-8">Array Task</h2>
+
+            <div className="flex flex-col md:flex-row justify-center gap-10 mb-10 text-center">
+                <div className="p-4 border rounded-lg  max-w-[400px] w-full">
+                    <h3 className="font-bold">Displayed Cards</h3>
+                    <p>visible cards: {displayedCards.length}</p>
+                    <p>Id: {displayedCards.map((card) => card.id).join(", ")}</p>
+                </div>
+
+                <div className="p-4 border rounded-lg ">
+                    <h3 className="font-bold">New Cards (Stored)</h3>
+                    <p>Cards store {moreData.length}</p>
+                    <p>IDs: {moreData.map((card) => card.id).join(", ")}</p>
+                </div>
+
+                <div className="p-4 border border-black rounded-lg">
+                    <h3 className="font-bold">Total CardData</h3>
+                    <p>total Cards: {cardData.length}</p>
+                </div>
             </div>
-            <div className="mt-10 flex justify-center gap-6">
-                {count > 6 && (
+
+            <div className="flex flex-col items-center gap-4 p-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-4 w-full max-w-4xl">
+                    {displayedCards.map((card) => (
+                        <div key={card.id} className="p-6 border border-black hover:bg-gray-200 rounded-lg shadow">
+                            <h3 className="font-semibold">{card.title}</h3>
+                            <p> {card.id}. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    ))}
+                </div>
+
+                {displayedCards.length < cardData.length && (
                     <button
-                        onClick={showLess}
-                        className="px-6 py-2 hover:bg-red-600 border border-black transition-all duration-200 ease-linear hover:text-white rounded-lg" >
-                        Show Less
-                    </button>
-                )}
-                {count < allData.length && (
-                    <button
-                        onClick={showMore}
-                        className="px-6 py-2 hover:bg-green-500 border border-black hover:text-white rounded-lg transition">
+                        onClick={loadMoreCards}
+                        className="px-8 py-3 cursor-pointer rounded-md font-semibold border border-black transition-all duration-300 ease-linear hover:text-white hover:bg-black"
+                    >
                         Show More
                     </button>
                 )}
             </div>
         </div>
     );
-}
+};
+
 export default LoadingData;
