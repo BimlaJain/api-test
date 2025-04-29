@@ -7,38 +7,38 @@ const LoadingData = () => {
         id: i + 1,
         title: `Card ${i + 1}`,
     }));
+
     const searchParams = useSearchParams();
     const router = useRouter();
-    const initialLimit = Math.min(parseInt(searchParams.get("limit") || "6", 10), cardData.length);
-    const [displayedCards, setDisplayedCards] = useState(cardData.slice(0, initialLimit));
-    const [moreData, setMoreData] = useState(cardData.slice(initialLimit, initialLimit + 6));
-    const updateURL = (newLimit: number) => {
+    const perPage = 6;
+
+    const initialPage = parseInt(searchParams.get("page") || "1", 10);
+    const [page, setPage] = useState(initialPage);
+
+    const updateURL = (newPage: number) => {
         const params = new URLSearchParams(searchParams.toString());
-        params.set("limit", newLimit.toString());
+        params.set("page", newPage.toString());
         router.replace(`?${params.toString()}`);
     };
+
+    const displayedCards = cardData.slice(0, page * perPage);
+    const moreData = cardData.slice(page * perPage, (page + 1) * perPage);
+
     const loadMoreCards = () => {
-        const nextLimit = Math.min(displayedCards.length + 6, cardData.length);
-        const additionalCards = cardData.slice(displayedCards.length, nextLimit);
-        setDisplayedCards((prev) => [...prev, ...additionalCards]);
-        const updatedMoreData = cardData.slice(nextLimit, nextLimit + 6);
-        setMoreData(updatedMoreData);
-        updateURL(nextLimit);
+        const newPage = page + 1;
+        setPage(newPage);
+        updateURL(newPage);
     };
+
     const seeLessCards = () => {
-        const nextLimit = Math.max(displayedCards.length - 6, 6); 
-        const reducedCards = cardData.slice(0, nextLimit);
-        setDisplayedCards(reducedCards);
-        const updatedMoreData = cardData.slice(nextLimit, nextLimit + 6);
-        setMoreData(updatedMoreData);
-        updateURL(nextLimit);
+        const newPage = Math.max(page - 1, 1);
+        setPage(newPage);
+        updateURL(newPage);
     };
+
     useEffect(() => {
-        console.log("Updated moreData:", moreData);
-    }, [moreData]);
-    useEffect(() => {
-        console.log("Updated displayedCards:", displayedCards);
-    }, [displayedCards]);
+        updateURL(page);
+    }, [page]);
 
     return (
         <div className="pt-10">
@@ -46,8 +46,8 @@ const LoadingData = () => {
             <div className="flex flex-col md:flex-row justify-center gap-10 mb-10 text-center">
                 <div className="p-4 border rounded-lg max-w-[400px] w-full">
                     <h3 className="font-bold">Displayed Cards</h3>
-                    <p>visible cards: {displayedCards.length}</p>
-                    <p>Id: {displayedCards.map((card) => card.id).join(", ")}</p>
+                    <p>Visible cards: {displayedCards.length}</p>
+                    <p>IDs: {displayedCards.map((card) => card.id).join(", ")}</p>
                 </div>
                 <div className="p-4 border rounded-lg">
                     <h3 className="font-bold">New Cards (Stored)</h3>
@@ -56,7 +56,7 @@ const LoadingData = () => {
                 </div>
                 <div className="p-4 border border-black rounded-lg">
                     <h3 className="font-bold">Total CardData</h3>
-                    <p>total Cards: {cardData.length}</p>
+                    <p>Total cards: {cardData.length}</p>
                 </div>
             </div>
             <div className="flex flex-col items-center gap-4 p-8">
@@ -70,12 +70,15 @@ const LoadingData = () => {
                 </div>
                 <div className="flex gap-4 mt-6">
                     {displayedCards.length < cardData.length && (
-                        <button onClick={loadMoreCards} className="px-6 py-2 rounded-md font-semibold border border-black transition-all duration-300 ease-linear hover:text-white hover:bg-black" >
+                        <button
+                            onClick={loadMoreCards}
+                            className="px-6 py-2 rounded-md font-semibold border border-black transition-all duration-300 ease-linear hover:text-white hover:bg-black"
+                        >
                             Show More
                         </button>
                     )}
 
-                    {displayedCards.length > 6 && (
+                    {page > 1 && (
                         <button
                             onClick={seeLessCards}
                             className="px-6 py-2 rounded-md font-semibold border border-black transition-all duration-300 ease-linear hover:text-white hover:bg-black"
